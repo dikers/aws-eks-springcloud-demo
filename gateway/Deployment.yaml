@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    version: 0.0.2
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: 351315713712.dkr.ecr.us-east-1.amazonaws.com/gateway
+        imagePullPolicy: Always
+        env:
+        - name: eureka_host
+          value: "abde092e8b48b11e9994f169df7597a1-1726433688.us-east-1.elb.amazonaws.com"
+        - name: eureka_port
+          value: "8761"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-lb
+  labels:
+    app: gateway-lb
+    version: 0.0.2
+spec:
+  selector:
+    app: gateway
+  type: LoadBalancer      
+  ports:
+  - name: tcp-80-80
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,0 +1,13 @@
+# eureka-server
+
+server:
+  port: 8761 # from env variable
+
+eureka:
+  instance:
+    hostname: eureka # from env variable
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/

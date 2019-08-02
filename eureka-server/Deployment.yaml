@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+  labels:
+    app: eureka-server
+    version: 0.0.2
+spec:
+  selector:
+    matchLabels:
+      app: eureka-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+    spec:
+      containers:
+      - name: eureka-server
+        image: 351315713712.dkr.ecr.us-east-1.amazonaws.com/eureka-server
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka
+  labels:
+    app: eureka
+    version: 0.0.2
+spec:
+  selector:
+    app: eureka-server
+  type: LoadBalancer      
+  ports:
+  - name: tcp-8761-8761
+    protocol: TCP
+    port: 8761
+    targetPort: 8761
+        

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-service
+  labels:
+    app: hello-world-service
+    version: 0.0.2
+spec:
+  selector:
+    matchLabels:
+      app: hello-world-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world-service
+    spec:
+      containers:
+      - name: hello-world-service
+        image: 351315713712.dkr.ecr.us-east-1.amazonaws.com/hello-world-service
+        imagePullPolicy: Always
+        env:
+        - name: eureka_host
+          value: "abde092e8b48b11e9994f169df7597a1-1726433688.us-east-1.elb.amazonaws.com"
+        - name: eureka_port
+          value: "8761"
