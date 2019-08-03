@@ -2,6 +2,39 @@
 
 
 
+### 新建AWS 账号 和堡垒机
+
+
+
+### 按照java docker 环境
+```
+
+
+cd ~/
+mkdir tools
+cd ~/tools/
+
+wget https://s3.amazonaws.com/dikers.nwcd/tools/jdk-8u221-linux-i586.tar.zip
+
+
+unzip jdk-8u221-linux-i586.tar.zip
+
+tar -xf jdk-8u221-linux-i586.tar
+
+sudo yum update -y
+
+
+sudo amazon-linux-extras install docker
+
+sudo service docker start
+
+
+sudo usermod -a -G docker ec2-user
+
+docker info
+```
+
+
 
 ### 安装 eksctl
 
@@ -17,6 +50,14 @@ eksctl version
 ### 安装 kubectl
 
 ```
+curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+kubectl version --short --client
+
 ```
 
 
@@ -55,7 +96,7 @@ svc/kubernetes   ClusterIP   10.100.0.1   <none>        443/TCP   1m
 ### 创建远程docker 仓库
 ```
 # 下面的命令会提供一个12小时可以访问的登录口令， 复制口令并且执行。 
-aws ecr get-login --no-include-email --region region
+$(aws ecr get-login --no-include-email --region us-east-1)
 
 
 # aws ecr create-repository --repository-name hello-repository --region region
