@@ -188,7 +188,7 @@ kubectl get svc
 
 ### 在浏览器中验证
 ```
-#http://a3f6221acb48d11e9994f169df7597a1-713525331.us-east-1.elb.amazonaws.com/api/hello?name=zhangliang
+#http://a3f6221acb48d11e9994f169df7597a1-713525331.us-east-1.elb.amazonaws.com/api/hello?name=xxxx
 
 # gateway/src/main/resources/application.yml  文件中查看路由
       routes:
